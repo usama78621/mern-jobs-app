@@ -4,10 +4,15 @@ const app = express();
 const cors = require("cors");
 require("dotenv").config();
 const notFound = require("./middleware/notFound");
+const auth = require("./routes/auth");
+const jobs = require("./routes/jobs");
 app.use(express.json());
 app.use(cors());
 
 const port = process.env.PORT || 5000;
+
+app.use("/auth", auth);
+app.use("/jobs", jobs);
 
 app.use(notFound);
 
