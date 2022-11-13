@@ -9,6 +9,10 @@ const register = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token });
 };
 
+const getCurrentUser = (req, res) => {
+  console.log(req.user);
+};
+
 const login = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -16,14 +20,15 @@ const login = async (req, res) => {
   }
   const user = await User.findOne({ email });
   if (!user) {
-    throw new  UnauthenticatedError('Invalid Credentials')
+    throw new UnauthenticatedError("Invalid Credentials");
   }
   const isPasswordCorrect = await user.comparePassword(password);
-  if(!isPasswordCorrect){
-    throw new UnauthenticatedError("Invalid Credentials")
+  if (!isPasswordCorrect) {
+    throw new UnauthenticatedError("Invalid Credentials");
   }
   const token = user.createJWT();
   res.status(StatusCodes.OK).json({ user: { name: user.name }, token });
 };
 
-module.exports = { login, register };
+
+module.exports = { login, register, getCurrentUser };

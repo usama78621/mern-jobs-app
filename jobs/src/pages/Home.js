@@ -1,18 +1,18 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-// import main from '../assets/main.svg';
+import main from '../assets/main.svg';
 // import {  } from '../context/appContext';
 import { Redirect } from 'react-router-dom';
-// import logo from '../assets/logo.svg';
+import logo from '../assets/logo.svg';
 function Home() {
   // const {  } = useGlobalContext();
 
   return (
     <>
-      {"" && <Redirect to='/dashboard' />}
+      {/* {"" && <Redirect to='/dashboard' />} */}
       <Wrapper>
         <nav>
-          <img src={''} alt='jobs app' />
+          <img src={logo} alt='jobs app' />
         </nav>
         <div className='container page'>
           <div className='info'>
@@ -28,7 +28,7 @@ function Home() {
               Login / Register
             </Link>
           </div>
-          <img src={''} alt='job hunt' className='img main-img' />
+          <img src={main} alt='job hunt' className='img main-img' />
         </div>
       </Wrapper>
     </>

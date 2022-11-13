@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const JobColumns = () => {
   return (
@@ -8,7 +8,7 @@ const JobColumns = () => {
       <span>company</span>
       <span>date</span>
       <span>status</span>
-      <span className='action'>action</span>
+      <span className="action">action</span>
     </Wrapper>
   );
 };

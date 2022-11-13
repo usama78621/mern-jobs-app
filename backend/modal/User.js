@@ -22,6 +22,9 @@ const UserShecma = mongoose.Schema({
     required: [true, "Please provide password"],
     minlength: 6,
   },
+  image: {
+    type: String,
+  },
 });
 
 UserShecma.pre("save", async function () {

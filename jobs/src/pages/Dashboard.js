@@ -1,60 +1,65 @@
-import styled from 'styled-components';
-import { useState, useEffect } from 'react';
-// import { useGlobalContext } from '../context/appContext';
-import FormRow from '../components/FormRow';
-import Navbar from '../components/Navbar';
-import Jobs from '../components/Jobs';
+import styled from "styled-components";
+import { useState, useEffect } from "react";
+import FormRow from "../components/FormRow";
+import Navbar from "../components/Navbar";
+import Jobs from "../components/Jobs";
+import { useJobGobalContext } from "../context/JobsContext";
 
 function Dashboard() {
-  const [values, setValues] = useState({ company: '', position: '' });
+  const [values, setValues] = useState({ company: "", position: "" });
+  const { createJob, isLoading, fetchJobs, showAlert } = useJobGobalContext();
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-  // const { "", "", "fetchJobs", createJob } = useGlobalContext();
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const { company, position } = values;
     if (company && position) {
-      // createJob(values);
-      setValues({ company: '', position: '' });
+      createJob(values);
+      setValues({ company: "", position: "" });
     }
   };
-  // useEffect(() => {
-  //   "fetchJobs"();
-  // }, []);
+
+  useEffect(() => {
+    fetchJobs();
+  }, []);
+
+  if (isLoading) {
+    return <div className="loading"></div>;
+  }
+
   return (
     <>
       <Navbar />
-      <Wrapper className='page'>
-        {"" && (
-          <div className='alert alert-danger'>
+      <Wrapper className="page">
+        {showAlert && (
+          <div className="alert alert-danger">
             there was an error, please try again
           </div>
         )}
-        <form className='job-form' onSubmit={handleSubmit}>
+        <form className="job-form" onSubmit={handleSubmit}>
           {/* position */}
           <FormRow
-            type='name'
-            name='position'
+            type="name"
+            name="position"
             value={values.position}
             handleChange={handleChange}
             horizontal
-            placeholder='Position'
+            placeholder="Position"
           />
           {/* company */}
           <FormRow
-            type='name'
-            name='company'
+            type="name"
+            name="company"
             value={values.company}
             handleChange={handleChange}
             horizontal
-            placeholder='Company'
+            placeholder="Company"
           />
-          <button type='submit' className='btn' disabled={""}>
-            {"" ? 'Adding New Job...' : 'Add Job'}
+          <button type="submit" className="btn" disabled={isLoading}>
+            {isLoading ? "Adding New Job..." : "Add Job"}
           </button>
         </form>
 

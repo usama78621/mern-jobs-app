@@ -1,18 +1,13 @@
-import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
-// import { useGlobalContext } from '../context/appContext'
+import React from "react";
+import { useAuthGobalContext } from "../context/AuthContext";
+import Register from "./Register";
 
-const PrivateRoute = ({ children, ...rest }) => {
-  // const { user } = useGlobalContext()
-
-  return (
-    <div></div>
-    // <Route
-    //   {...rest}
-    //   render={() => {
-    //     return user ? children : <Redirect to='/'></Redirect>
-    //   }}
-    // ></Route>
-  )
-}
-export default PrivateRoute
+const PrivateRoute = ({ Component }) => {
+  const { isAuthentication } = useAuthGobalContext();
+  console.log(isAuthentication);
+  if (!isAuthentication) {
+    return <Register />;
+  }
+  return <Component />;
+};
+export default PrivateRoute;

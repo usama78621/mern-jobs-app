@@ -1,17 +1,21 @@
-import { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import { useState, useEffect } from "react";
+import styled from "styled-components";
 // import { useGlobalContext } from '../context/appContext';
-import { Redirect } from 'react-router-dom';
-import FormRow from '../components/FormRow';
-// import logo from '../assets/logo.svg';
+import { Redirect, useNavigate } from "react-router-dom";
+import FormRow from "../components/FormRow";
+import { useAuthGobalContext } from "../context/AuthContext";
+import logo from "../assets/logo.svg";
 
 function Register() {
   const [values, setValues] = useState({
-    name: '',
-    email: '',
-    password: '',
+    name: "",
+    email: "",
+    password: "",
     isMember: true,
   });
+  const { register, login } = useAuthGobalContext();
+  let Navigate = useNavigate();
+  const {user} = useAuthGobalContext()
 
   // const { '', register, login, "", showAlert } = useGlobalContext();
   const toggleMember = () => {
@@ -24,31 +28,32 @@ function Register() {
     e.preventDefault();
     const { name, email, password, isMember } = values;
 
-    if ('') {
-      // login({ email, password });
+    if (isMember) {
+      login({ email, password });
     } else {
-      // register({ name, email, password });
+      register({ name, email, password });
     }
   };
 
+  console.log(user);
+
   return (
     <>
-      {'' && <Redirect to='/dashboard' />}
-      <Wrapper className='page full-page'>
-        <div className='container'>
+      <Wrapper className="page full-page">
+        <div className="container">
           {"" && (
-            <div className='alert alert-danger'>showAlert
-              there was an error, please try again
+            <div className="alert alert-danger">
+              showAlert there was an error, please try again
             </div>
           )}
-          <form className='form' onSubmit={onSubmit}>
-            <img src={''} alt='jobio' className='logo' />
-            <h4>{values.isMember ? 'Login' : 'Register'}</h4>
+          <form className="form" onSubmit={onSubmit}>
+            <img src={""} alt="jobio" className="logo" />
+            <h4>{values.isMember ? "Login" : "Register"}</h4>
             {/* name field */}
             {!values.isMember && (
               <FormRow
-                type='name'
-                name='name'
+                type="name"
+                name="name"
                 value={values.name}
                 handleChange={handleChange}
               />
@@ -56,36 +61,32 @@ function Register() {
 
             {/* single form row */}
             <FormRow
-              type='email'
-              name='email'
+              type="email"
+              name="email"
               value={values.email}
               handleChange={handleChange}
             />
             {/* end of single form row */}
             {/* single form row */}
             <FormRow
-              type='password'
-              name='password'
+              type="password"
+              name="password"
               value={values.password}
               handleChange={handleChange}
             />
             {/* end of single form row */}
-            <button
-              type='submit'
-              className='btn btn-block'
-              disabled={""}
-            >
-              {"" ? 'Fetching ' : 'Submit'}
+            <button type="submit" className="btn btn-block" disabled={""}>
+              {"" ? "Fetching " : "Submit"}
             </button>
             <p>
-              {values.isMember ? 'Not a member yet?' : 'Already a member?'}
+              {values.isMember ? "Not a member yet?" : "Already a member?"}
 
               <button
-                type='button'
+                type="button"
                 onClick={toggleMember}
-                className='member-btn'
+                className="member-btn"
               >
-                {values.isMember ? 'Register' : 'Login'}
+                {values.isMember ? "Register" : "Login"}
               </button>
             </p>
           </form>

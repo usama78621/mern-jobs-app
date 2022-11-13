@@ -1,25 +1,26 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import logo from '../assets/logo.svg';
-import { FaUserCircle, FaCaretDown } from 'react-icons/fa';
-// import { useGlobalContext } from '../context/appContext';
+import React, { useState } from "react";
+import styled from "styled-components";
+import logo from "../assets/logo.svg";
+import { FaUserCircle, FaCaretDown } from "react-icons/fa";
+import { useAuthGobalContext } from "../context/AuthContext";
 
 const Navbar = () => {
-  // const { user, logout } = useGlobalContext();
   const [showLogout, setShowLogout] = useState(false);
+  const { user, logout } = useAuthGobalContext();
+console.log(user);
   return (
     <Wrapper>
-      <div className='nav-center'>
-        <img src={logo} alt='jobs app' />
-        {"" && (
-          <div className='btn-container'>
-            <button className='btn' onClick={() => setShowLogout("")}>
+      <div className="nav-center">
+        <img src={logo} alt="jobs app" />
+        {user && (
+          <div className="btn-container">
+            <button className="btn" onClick={() => setShowLogout(true)}>
               <FaUserCircle />
-              {""}
+              {user.name || user}
               <FaCaretDown />
             </button>
-            <div className={showLogout ? 'dropdown show-dropdown' : 'dropdown'}>
-              <button onClick={""} className='dropdown-btn'>
+            <div className={showLogout ? "dropdown show-dropdown" : "dropdown"}>
+              <button onClick={logout} className="dropdown-btn">
                 logout
               </button>
             </div>

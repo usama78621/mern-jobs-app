@@ -1,115 +1,96 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { useState, useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import styled from "styled-components";
 // import { useGlobalContext } from '../context/appContext';
-import FormRow from '../components/FormRow';
-import Navbar from '../components/Navbar';
+import FormRow from "../components/FormRow";
+import Navbar from "../components/Navbar";
+import { useJobGobalContext } from "../context/JobsContext";
 function Update() {
   const { id } = useParams();
-  let Navigate = useNavigate()
-  // const {
-  //   isLoading,
-  //   editItem,
-  //   fetchSingleJob,
-  //   singleJobError: error,
-  //   user,
-  //   editJob,
-  //   editComplete,
-  // } = useGlobalContext();
+  const Navigate = useNavigate();
+  const { fetchSingleJob, isLoading, editComplete, editJob, editItem } =
+    useJobGobalContext();
+  const { user } = useJobGobalContext();
 
   const [values, setValues] = useState({
-    company: '',
-    position: '',
-    status: '',
+    company: "",
+    position: "",
+    status: "",
   });
 
-  // useEffect(() => {
-  //   fetchSingleJob(id);
-  // }, [id]);
+  useEffect(() => {
+    fetchSingleJob(id);
+  }, [id]);
 
-  // useEffect(() => {
-  //   if (editItem) {
-  //     const { company, position, status } = editItem;
-  //     setValues({ company, position, status });
-  //   }
-  // }, [editItem]);
+  useEffect(() => {
+    if (editItem) {
+      const { company, position, status } = editItem;
+      setValues({ company, position, status });
+    }
+  }, [editItem]);
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const { company, position, status } = values;
-    // if (company && position) {
-    //   editJob(id, { company, position, status });
-    // }
+    const { company, position, status } = values;
+    if (company && position) {
+      editJob(id, { company, position, status });
+    }
   };
-  // if (isLoading && !editItem) {
-  //   return <div className='loading'></div>;
-  // }
+  if (isLoading && !editItem) {
+    return <div className="loading"></div>;
+  }
 
-  // if (!editItem || error) {
-  //   return (
-  //     <>
-  //       {!user && <Redirect to='/' />}
-  //       <ErrorContainer className='page'>
-  //         <h5>There was an error, please double check your job ID</h5>
-
-  //         <Link to='/dashboard' className='btn'>
-  //           dasboard
-  //         </Link>
-  //       </ErrorContainer>
-  //     </>
-  //   );
-  // }
   return (
     <>
-      {/* {!user && <Redirect to='/' />} */}
+      {/* {!user && Navigate("/")} */}
       <Navbar />
-      <Container className='page'>
+      <Container className="page">
         <header>
-          <Link to='/dashboard' className='btn btn-block back-home'>
+          <Link to="/dashboard" className="btn btn-block back-home">
             back home
           </Link>
         </header>
-        <form className='form' onSubmit={handleSubmit}>
-          {/* <p>{editComplete && 'Success! Edit Complete'}</p> */}
+        <form className="form" onSubmit={handleSubmit}>
+          <p>{editComplete && 'Success! Edit Complete'}</p>
           <h4>Update Job</h4>
           {/* company */}
-          <div className='form-container'>
+          <div className="form-container">
             <FormRow
-              type='name'
-              name='position'
+              type="name"
+              name="position"
               value={values.position}
               handleChange={handleChange}
             />
             <FormRow
-              type='name'
-              name='company'
+              type="name"
+              name="company"
               value={values.company}
               handleChange={handleChange}
             />
-            <div className='form-row'>
-              <label htmlFor='status' className='form-label'>
+            <div className="form-row">
+              <label htmlFor="status" className="form-label">
                 Status
               </label>
               <select
-                name='status'
+                name="status"
                 value={values.status}
                 onChange={handleChange}
-                className='status'
+                className="status"
               >
-                <option value='pending'>pending</option>
-                <option value='interview'>interview</option>
-                <option value='declined'>declined</option>
+                <option value="pending">pending</option>
+                <option value="interview">interview</option>
+                <option value="declined">declined</option>
               </select>
             </div>
             <button
-              type='submit'
-              className='btn btn-block submit-btn'
-              disabled={''}
+              type="submit"
+              className="btn btn-block submit-btn"
+              disabled={""}
             >
-              {'' ? 'Editing...' : 'Edit'}
+              {"" ? "Editing..." : "Edit"}
             </button>
           </div>
         </form>
