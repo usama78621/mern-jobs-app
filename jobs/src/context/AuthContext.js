@@ -57,7 +57,7 @@ const AuthProvider = ({ children }) => {
     const formData = new FormData();
     formData.append("image", imageFile);
     try {
-      await axios.post(`/auth/uploads`,formData, {
+      await axios.post(`/auth/uploads`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -69,12 +69,19 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      const newUser = JSON.parse(user);
-      dispatch({ type: "SET_USER", payload: newUser.name });
+  const getCurrentUser = async () => {
+    setIsLoading();
+    try {
+      const { data } = await axios.get("/auth/getCurrentUser");
+      dispatch({ type: "GET_SINGLE_USER", payload: data.user });
+    } catch (error) {
+      dispatch({ type: "GET_SINGLE_ERROR" });
+      logout();
     }
+  };
+
+  useEffect(() => {
+    getCurrentUser();
   }, []);
 
   return (

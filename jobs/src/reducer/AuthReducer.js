@@ -29,8 +29,13 @@ export const reducer = (state, { type, payload }) => {
     return { ...state, isLoading: true, user: null, isAuthentication: false };
   }
 
-  if (type === "SET_USER") {
-    return { ...state, user: payload, isAuthentication: true };
+  if (type === "GET_SINGLE_USER") {
+    return {
+      ...state,
+      user: payload,
+      isAuthentication: true,
+      isLoading: false,
+    };
   }
   return state;
 };

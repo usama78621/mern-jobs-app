@@ -7,7 +7,7 @@ import { useAuthGobalContext } from "../context/AuthContext";
 const Navbar = () => {
   const [showLogout, setShowLogout] = useState(false);
   const { user, logout, uploadProductFile } = useAuthGobalContext();
-  console.log(user);
+  console.log(user.image);
   return (
     <Wrapper>
       <div className="nav-center">
@@ -16,9 +16,21 @@ const Navbar = () => {
           <div className="btn-container">
             <input type="file" hidden id="ih" onChange={uploadProductFile} />
             <label htmlFor="ih">
-              <FaUserCircle
-                style={{ width: "40px", height: "50px", margin: "auto" }}
-              />
+              {user.image ? (
+                <img
+                  src={user.image}
+                  alt="profile Image"
+                  style={{
+                    width: "100px",
+                    height: "50px",
+                    borderRadius: "5px",
+                  }}
+                />
+              ) : (
+                <FaUserCircle
+                  style={{ width: "40px", height: "50px", margin: "auto" }}
+                />
+              )}
             </label>
             <button className="btn" onClick={() => setShowLogout(true)}>
               {user.name || user}
