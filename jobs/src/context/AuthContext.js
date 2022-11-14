@@ -52,6 +52,23 @@ const AuthProvider = ({ children }) => {
     dispatch({ type: "LOGOUT_USER" });
   };
 
+  const uploadProductFile = async (e) => {
+    const imageFile = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", imageFile);
+    try {
+      await axios.post(`/auth/uploads`,formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      dispatch({ type: "PROFILE_IMAGE_UPLOAD" });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: "PROFILE_IMAGE_ERROR" });
+    }
+  };
+
   useEffect(() => {
     const user = localStorage.getItem("user");
     if (user) {
@@ -62,7 +79,7 @@ const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ ...state, dispatch, register, login, logout }}
+      value={{ ...state, dispatch, register, login, logout, uploadProductFile }}
     >
       {children}
     </AuthContext.Provider>

@@ -73,6 +73,8 @@ const JobProvider = ({ children }) => {
       dispatch({ type: "EDIT_JOB_ERROR" });
     }
   };
+
+ 
   return (
     <JobContext.Provider
       value={{

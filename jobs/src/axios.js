@@ -1,5 +1,5 @@
 import axios from "axios";
-axios.defaults.baseURL = `https://api-jobs-06.herokuapp.com`;
+axios.defaults.baseURL = `http://localhost:5000/`;
 
 axios.interceptors.request.use(function (req) {
   const user = localStorage.getItem("user");
