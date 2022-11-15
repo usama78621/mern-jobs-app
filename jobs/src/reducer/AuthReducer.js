@@ -24,11 +24,6 @@ export const reducer = (state, { type, payload }) => {
   if (type === "LOGIN_USER_ERROR") {
     return { ...state, isLoading: false, user: null, isAuthentication: false };
   }
-
-  if (type === "LOGOUT_USER") {
-    return { ...state, isLoading: true, user: null, isAuthentication: false };
-  }
-
   if (type === "GET_SINGLE_USER") {
     return {
       ...state,
@@ -37,5 +32,10 @@ export const reducer = (state, { type, payload }) => {
       isLoading: false,
     };
   }
+  if (type === "LOGOUT_USER") {
+    return { ...state, isLoading: false, user: null, isAuthentication: false };
+  }
+
+ 
   return state;
 };

@@ -6,7 +6,7 @@ import { useAuthGobalContext } from "../context/AuthContext";
 
 const Navbar = () => {
   const [showLogout, setShowLogout] = useState(false);
-  const { user, logout, uploadProductFile } = useAuthGobalContext();
+  const { user, logoutUser, uploadProductFile } = useAuthGobalContext();
   console.log(user.image);
   return (
     <Wrapper>
@@ -37,7 +37,7 @@ const Navbar = () => {
               <FaCaretDown />
             </button>
             <div className={showLogout ? "dropdown show-dropdown" : "dropdown"}>
-              <button onClick={logout} className="dropdown-btn">
+              <button onClick={logoutUser} className="dropdown-btn">
                 logout
               </button>
             </div>
